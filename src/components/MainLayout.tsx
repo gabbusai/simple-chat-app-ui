@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../utils/AuthContext';
 import { Toaster } from 'react-hot-toast';
 
 function MainLayout() {
-    const {token, user} = useAuthContext();
+    const {token} = useAuthContext();
     const navigate = useNavigate();
     useEffect(() => {
         if (!token) {

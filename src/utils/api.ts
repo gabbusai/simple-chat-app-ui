@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { type LoginResponse, type UserType, type LoginFormType, type LoginResult } from "./types";
+import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError } from "./types";
 
 const BASE_URL = "http://192.168.100.248:8080"
 
@@ -49,3 +49,16 @@ export const loginUser = async (formData: LoginFormType): Promise<LoginResult> =
     }
 }
 
+//register user
+export const registerUser = async (formData: RegisterFormType): Promise<RegisterResult> => {
+    try {
+        const response = await axiosInstance.post<RegisterResponse>('/api/register', formData);
+        return { success: true, data: response.data };
+    } catch (error) {
+        const axiosError = error as AxiosError<RegisterError>;
+        return {
+            success: false,
+            error: axiosError.response?.data.message || "Unknown error",
+        };
+    }
+}

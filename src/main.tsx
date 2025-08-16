@@ -8,6 +8,7 @@ import Login from './pages/Auth/Login.tsx';
 import MainLayout from './components/MainLayout.tsx';
 import TestPage from './pages/TestPage.tsx';
 import '@ant-design/v5-patch-for-react-19';
+import Register from './pages/Auth/Register.tsx';
 
 //tanstack query 
 const queryClient = new QueryClient({
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/register",
+    element: <Register />
   },
   {
     element: <MainLayout />,

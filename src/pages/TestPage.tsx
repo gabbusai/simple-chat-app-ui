@@ -1,11 +1,13 @@
-import React from 'react'
+
 import { useAuthContext } from '../utils/AuthContext';
+import { getUser } from '../utils/api';
 
 export default function TestPage() {
 
   const {token} = useAuthContext();
   const handleGetUser = (token:string | null) => {
     // Logic to get user information
+    getUser(token);
   }
 
   return (
