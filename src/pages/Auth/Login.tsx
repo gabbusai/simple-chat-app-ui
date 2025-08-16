@@ -18,7 +18,7 @@ function Login() {
         if (response.success) {
             setToken(response.data.token);
             setUser(response.data.user);
-            navigate('/test');
+            navigate('/home');
         } else {
             console.error("Login failed:", response);
             toast.error(response.error);
