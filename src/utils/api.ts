@@ -55,10 +55,31 @@ export const registerUser = async (formData: RegisterFormType): Promise<Register
         const response = await axiosInstance.post<RegisterResponse>('/api/register', formData);
         return { success: true, data: response.data };
     } catch (error) {
+        //console.log('error')
         const axiosError = error as AxiosError<RegisterError>;
+        //console.log('axiosError', axiosError.response?.data.message);
         return {
             success: false,
             error: axiosError.response?.data.message || "Unknown error",
         };
     }
 }
+//logout user
+export const logoutUser = async (token: string | null): Promise<void> => {
+    try {
+        await axiosInstance.post('/api/logout', {}, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.error("Error logging out:", axiosError);
+
+        if (axiosError.response) {
+            throw axiosError.response.data;
+        }
+
+        throw error;
+    }
+};

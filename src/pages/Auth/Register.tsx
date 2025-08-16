@@ -10,14 +10,14 @@ function Register() {
 
   const handleRegister = async (values: RegisterFormType) => {
     const { name, email, password, password_confirmation } = values;
-    try {
-      // Make API call to register user
-      await registerUser({ name, email, password, password_confirmation });
-      toast.success('Registration successful!');
-      navigate('/login');
-    } catch (error) {
-      toast.error('Registration failed. Please try again.');
-    }
+      const response = await registerUser({ name, email, password, password_confirmation });
+
+      if(response.success) {
+        toast.success('Registration successful!');
+        navigate('/login');
+      } else {
+        toast.error(response.error);
+      }
   }
 
   return (
