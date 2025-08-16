@@ -41,7 +41,7 @@ function NavBar() {
         navigate(link.path);
     }
     return (
-        <div className='bg-zinc-900 h-screen w-36 px-5 flex flex-col align-items-center justify-between'>
+        <div className='bg-zinc-900 h-screen w-50 px-5 flex flex-col align-items-center justify-between'>
 
             
 
