@@ -18,7 +18,7 @@ function NavBar() {
     const links: LinkType[] = [
         { label: 'Home', path: '/home', icon: <FaHome /> },
         { label: 'Profile', path: '/profile', icon: <FaUserCircle /> },
-        { label: 'Conversations', path: '/converations', icon: <IoChatbubbleEllipses /> },
+        { label: 'Conversations', path: '/conversations', icon: <IoChatbubbleEllipses /> },
     ]
 
     const handleLogout = (token: string | null) => {

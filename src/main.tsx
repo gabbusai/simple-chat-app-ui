@@ -9,6 +9,9 @@ import MainLayout from './components/MainLayout.tsx';
 import TestPage from './pages/TestPage.tsx';
 import '@ant-design/v5-patch-for-react-19';
 import Register from './pages/Auth/Register.tsx';
+import Conversations from './pages/Conversations.tsx';
+import Profile from './pages/Profile.tsx';
+import Home from './pages/Home.tsx';
 
 //tanstack query 
 const queryClient = new QueryClient({
@@ -40,6 +43,18 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <TestPage />
+      },
+      {
+        path: "/conversations",
+        element: <Conversations />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
+      },
+      {
+        path: "/home",
+        element: <Home /> 
       }
     ]
   }
