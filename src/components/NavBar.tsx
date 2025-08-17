@@ -2,7 +2,7 @@ import { useState, type JSX } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../utils/AuthContext';
 import { logoutUser } from '../utils/api';
-import { FaHome, FaSignOutAlt, FaUserCircle, FaPoo } from "react-icons/fa";
+import { FaHome, FaSignOutAlt, FaUserCircle, FaPoo, FaBell } from "react-icons/fa";
 import { IoChatbubbleEllipses } from 'react-icons/io5';
 
 
@@ -20,7 +20,9 @@ function NavBar() {
         { name:'home',label: 'Home', path: '/home', icon: <FaHome /> },
         { name:'profile', label: 'Profile', path: '/profile', icon: <FaUserCircle /> },
         { name:'conversations', label: 'Conversations', path: '/conversations', icon: <IoChatbubbleEllipses /> },
+        { name: 'notifications', label: 'Notifications', path: '/notifications', icon: <FaBell /> }
     ]
+
     const [curTab, setCurTab] = useState<string | null>('home');
 
     const handleLogout = (token: string | null) => {

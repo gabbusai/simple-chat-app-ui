@@ -12,6 +12,7 @@ import Register from './pages/Auth/Register.tsx';
 import Conversations from './pages/Conversations.tsx';
 import Profile from './pages/Profile.tsx';
 import Home from './pages/Home.tsx';
+import Notifications from './pages/Notifications.tsx';
 
 //tanstack query 
 const queryClient = new QueryClient({
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home /> 
+      },
+            {
+        path: "/notifications",
+        element: <Notifications />
       }
     ]
   }
