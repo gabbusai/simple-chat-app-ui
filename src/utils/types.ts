@@ -54,3 +54,14 @@ export type RegisterError = {
 }
 
 export type RegisterResult = | { success: true; data: RegisterResponse } | { success: false; error: string };
+
+export type UserBioType = {
+    id: number;
+    user_id: number;
+    bio: string;
+    profile_photo: string;
+    conversation_count: number;
+    updated_at: string;
+    created_at: string;
+    user: UserType;
+}

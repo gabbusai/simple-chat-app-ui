@@ -1,8 +1,10 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { useAuthContext } from "./AuthContext";
-import { searchUsers } from "./api";
+import { getSelfBio, searchUsers } from "./api";
 
-export const useSearchUsers = (token: string | null, search: string, perPage: number) => {
+export const useSearchUsers = (search: string, perPage: number) => {
+    const { token } = useAuthContext();
+
     return useInfiniteQuery({
         queryKey: ['searchUsers', perPage, search],
         queryFn: ({pageParam = 1}) => searchUsers(token, search, perPage, pageParam),   
@@ -17,3 +19,13 @@ export const useSearchUsers = (token: string | null, search: string, perPage: nu
         enabled: false,
     });
 }
+
+//get user bio
+export const useGetSelfBio = () => {
+    const { token } = useAuthContext();
+
+    return useQuery({
+        queryKey: ['getSelfBio'],
+        queryFn: () => getSelfBio(token),
+    });
+};

@@ -14,7 +14,7 @@ type SearchUsersProps = {
 function SearchUsers({ search, setSearch, users, setUsers }: SearchUsersProps) {
     const { token } = useAuthContext();
     const { data, fetchNextPage, hasNextPage, isFetching,
-        isFetchingNextPage, isLoading, isError, error, refetch } = useSearchUsers(token, search, 10);
+        isFetchingNextPage, isLoading, isError, error, refetch } = useSearchUsers(search, 10);
     const [showResults, setShowResults] = useState(false);
 
     if(isError){

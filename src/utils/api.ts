@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError, type SearchUserType } from "./types";
+import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError, type SearchUserType, type UserBioType } from "./types";
 
 const BASE_URL = "http://192.168.100.248:8080"
 
@@ -15,6 +15,7 @@ export const axiosInstance = axios.create({
 
 //get user details
 export const getUser = async (token: string | null) => {
+
     try {
         const response = await axiosInstance.get<UserType>('/api/user', {
             headers: {
@@ -97,6 +98,26 @@ export const searchUsers = async (token: string | null, search: string, perPage 
         const axiosError = error as AxiosError<{ message: string }>;
         console.error("Error searching users:", axiosError);
         //console.log(axiosError.response?.data.message);
+        if (axiosError.response) {
+            throw axiosError.response.data?.message || "Unknown error";
+        }
+
+        throw error;
+    }
+}
+
+//get user bio
+export const getSelfBio = async (token: string | null): Promise<UserBioType> => {
+    try {
+        const response = await axiosInstance.get<UserBioType>(`/api/bio`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.error("Error fetching user bio:", axiosError);
         if (axiosError.response) {
             throw axiosError.response.data?.message || "Unknown error";
         }
