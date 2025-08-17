@@ -25,29 +25,35 @@ export const AuthContext = createContext<AuthContextType>({
 
 function AuthContextProvider({children}: AuthProviderProps) {
     const [user, setUser] = useState<UserType | null>(null);
-    const [token, setToken] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(
+        () => localStorage.getItem("authToken") // read from localStorage on init
+    );
 
     useEffect(() => {
-        if (token) {  // Only fetch the user if the token exists
-          const fetchUser = async () => {
-            try {
-              const userData = await getUser(token);  // await the user data
-              setUser(userData);  // Set the user data in state
-            } catch (error) {
-              console.error("Failed to fetch user:", error);
-            }
-          };
-          
-          fetchUser();  // Call the async function
+        if (token) {
+            localStorage.setItem("authToken", token); // persist token
+            const fetchUser = async () => {
+                try {
+                    const userData = await getUser(token);
+                    setUser(userData);
+                } catch (error) {
+                    console.error("Failed to fetch user:", error);
+                    setToken(null);
+                    localStorage.removeItem("authToken"); // clear bad token
+                }
+            };
+            fetchUser();
+        } else {
+            localStorage.removeItem("authToken"); // cleanup if logged out
+            setUser(null);
         }
+    }, [token]);
 
-      }, [token]);  // Only run when token changestoken
-
-  return (
-    <AuthContext.Provider value={{ user, token, setUser, setToken }}>
-        {children}
-    </AuthContext.Provider>
-  )
+    return (
+        <AuthContext.Provider value={{ user, token, setUser, setToken }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
 export default AuthContextProvider;

@@ -9,16 +9,18 @@ import { IoChatbubbleEllipses } from 'react-icons/io5';
 function NavBar() {
     
     const navigate = useNavigate();
-    const { token } = useAuthContext();
+    const { token, user } = useAuthContext();
     type LinkType = {
         name:string;
         label: string;
         path: string;
         icon: JSX.Element;
     }
+
+
     const links: LinkType[] = [
         { name:'home',label: 'Home', path: '/home', icon: <FaHome /> },
-        { name:'profile', label: 'Profile', path: '/profile', icon: <FaUserCircle /> },
+        { name:'users', label: 'Users', path: `/user/${user?.id}`, icon: <FaUserCircle /> },
         { name:'conversations', label: 'Conversations', path: '/conversations', icon: <IoChatbubbleEllipses /> },
         { name: 'notifications', label: 'Notifications', path: '/notifications', icon: <FaBell /> }
     ]

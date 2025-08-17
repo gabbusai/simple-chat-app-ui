@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import LoadingScreen from "../components/LoadingScreen";
+import EditProfile from "../components/EditProfile";
 import { useAuthContext } from "../utils/AuthContext";
-import { useGetSelfBio } from "../utils/queries";
+import { useGetBioId, useGetSelfBio } from "../utils/queries";
+import { useParams } from "react-router-dom";
+
 
     
 
 function Profile() {
 
   const imageTemp = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3SwwQp_JZ1vjxqXeC6Oikp-TLWUWzSSR9hQ&s"
-  const { data: userBio, isLoading, error, isError } = useGetSelfBio();
+  const { userId } = useParams();
+  const { data: userBio, isLoading, error, isError } = useGetBioId(userId);
   const { user } = useAuthContext();
+
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const [editingMode, setEditingMode] = useState(false);
 
   useEffect(() => {
     if (user && userBio) {
@@ -22,7 +28,10 @@ function Profile() {
     return <LoadingScreen color="#2c2c2c"/>;
   }
   return (
-    <div className='bg-zinc-300 h-full w-full grid place-items-center'>
+    <div className='bg-zinc-300 h-full w-full grid place-items-center'
+    style={ 
+      editingMode ? { backdropFilter: "blur(5px)" } : {}
+     }>
       <div className="h-[1200px] w-[1200px] bg-zinc-100 rounded-3xl
       shadow-xl inset-4">
         <div className="inset-0 bg-gradient-to-r from-amber-500 to-amber-300 w-full h-1/5 rounded-t-2xl relative">
@@ -39,10 +48,16 @@ function Profile() {
           <p className="mt-5 text-center text-[1.5rem]">{userBio?.bio}</p>
           {
             isOwnProfile && (
-              <button className="mt-5 px-4 py-2 bg-amber-500 text-white rounded-lg">
+              <button className="mt-5 px-4 py-2 bg-amber-500 text-white rounded-lg"
+              onClick={() => setEditingMode(!editingMode)}>
                 Edit Profile
               </button>
-            )}
+
+            )},
+
+              {editingMode && (
+                <EditProfile bio={userBio} isActive={editingMode} setActive={setEditingMode} />
+              )}
           
         </div>
       </div>

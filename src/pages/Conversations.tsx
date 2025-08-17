@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import ConversationList from "../components/ConversationTabs/ConversationList"
-import { useAuthContext } from "../utils/AuthContext";
-import { useSearchUsers } from "../utils/queries"
+
 import type { UserType } from "../utils/types";
-import toast from "react-hot-toast";
-import LoadingScreen from "../components/LoadingScreen";
 import SearchUsers from "../components/ConversationTabs/SearchUsers";
 
 function Conversations() {
-  const { token } = useAuthContext();
+
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState<UserType[]>([]);
   //notes
-  // - Create Search Component then add setSearch as a prop, then use parent setSearch as the value
+  // - Create Search Component then add setSearch as a prop, then use parent setSearch as the value (DONE KINDA)
   // - Centralize states in this parent component
   // - maybe create and use a context idk bruh
 

@@ -125,3 +125,43 @@ export const getSelfBio = async (token: string | null): Promise<UserBioType> => 
         throw error;
     }
 }
+//get bio by id
+export const getBioId = async (token: string | null, id: number | string | undefined): Promise<UserBioType> => {
+    try {
+        const response = await axiosInstance.get<UserBioType>(`/api/bio/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.error("Error fetching user bio:", axiosError);
+        if (axiosError.response) {
+            throw axiosError.response.data?.message || "Unknown error";
+        }
+
+        throw error;
+    }
+}
+
+//const update bio
+export const updateBio = async (token: string | null, bio: string): Promise<UserBioType> => {
+    try {
+        const response = await axiosInstance.put<UserBioType>(`/api/bio`, { bio }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.error("Error updating user bio:", axiosError);
+        if (axiosError.response) {
+            throw axiosError.response.data?.message || "Unknown error";
+        }
+
+        throw error;
+    }
+}

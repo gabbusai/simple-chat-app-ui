@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <Conversations />
       },
       {
-        path: "/profile",
+        path: "/user/:userId",
         element: <Profile />
       },
       {
