@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios"
-import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError, type SearchUserType, type UserBioType } from "./types";
+import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError, type SearchUserType, type UserBioType, type BioForm } from "./types";
 
-const BASE_URL = "http://192.168.100.248:8080"
+export const BASE_URL = "http://192.168.100.248:8080"
 
 export const axiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -147,11 +147,23 @@ export const getBioId = async (token: string | null, id: number | string | undef
 }
 
 //const update bio
-export const updateBio = async (token: string | null, bio: string): Promise<UserBioType> => {
+export const updateBio = async (token: string | null, bio: BioForm) => {
     try {
-        const response = await axiosInstance.put<UserBioType>(`/api/bio`, { bio }, {
+        //turn bio into form 
+        const formData = new FormData();
+        formData.append("bio", bio.bio);
+        if(bio.profile_picture) {
+        formData.append("profile_picture", bio.profile_picture);
+        }
+
+        for (const pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+            }
+
+        const response = await axiosInstance.post<BioForm>(`/api/bio`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
             },
         });
         return response.data;

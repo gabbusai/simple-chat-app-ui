@@ -59,9 +59,14 @@ export type UserBioType = {
     id: number;
     user_id: number;
     bio: string;
-    profile_photo: string;
+    profile_picture: string | Blob;
     conversation_count: number;
     updated_at: string;
     created_at: string;
     user: UserType;
+}
+
+export type BioForm ={
+    bio: string;
+    profile_picture: string | Blob;
 }

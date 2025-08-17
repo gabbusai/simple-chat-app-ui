@@ -4,6 +4,7 @@ import EditProfile from "../components/EditProfile";
 import { useAuthContext } from "../utils/AuthContext";
 import { useGetBioId, useGetSelfBio } from "../utils/queries";
 import { useParams } from "react-router-dom";
+import { BASE_URL } from "../utils/api";
 
 
     
@@ -22,6 +23,7 @@ function Profile() {
     if (user && userBio) {
       setIsOwnProfile(user.id === userBio.user.id);
     }
+    console.log(`${BASE_URL}/storage/${userBio?.profile_picture}`)
   }, [user, userBio]);
 
   if(isLoading){
@@ -37,8 +39,9 @@ function Profile() {
         <div className="inset-0 bg-gradient-to-r from-amber-500 to-amber-300 w-full h-1/5 rounded-t-2xl relative">
           <div className="absolute top-[calc(40%)] left-[calc(50%-7.5rem)] h-[15rem] w-[15rem] bg-zinc-500 rounded-full
           border-dashed border-7 border-amber-500">
-            <img src={userBio?.profile_photo || imageTemp} alt="Profile Picture" className="h-full w-full object-cover rounded-full" />
+            <img src={`${BASE_URL}/storage/${userBio?.profile_picture}` || imageTemp} alt="Profile Picture" className="h-full w-full object-cover rounded-full" />
           </div>
+          
           
         </div>
         <div className="mt-[7.5rem]"></div>
