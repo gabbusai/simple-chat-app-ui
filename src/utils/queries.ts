@@ -12,6 +12,8 @@ export const useSearchUsers = (token: string | null, search: string, perPage: nu
                 return lastPage.pagination.current_page + 1;
             }
             return undefined;
-        }
+        },
+        refetchOnMount: false,
+        enabled: false,
     });
 }

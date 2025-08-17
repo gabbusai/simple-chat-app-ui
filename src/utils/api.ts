@@ -96,9 +96,9 @@ export const searchUsers = async (token: string | null, search: string, perPage 
     } catch (error) {
         const axiosError = error as AxiosError<{ message: string }>;
         console.error("Error searching users:", axiosError);
-
+        //console.log(axiosError.response?.data.message);
         if (axiosError.response) {
-            throw axiosError.response.data;
+            throw axiosError.response.data?.message || "Unknown error";
         }
 
         throw error;
