@@ -46,8 +46,8 @@ function NavBar() {
             
 
         <div className="">
-            <div className="mb-20 mt-2 h-32 grid place-items-center">
-                <div className="text-[70px] text-orange-600 p-5  grid place-items-center">
+            <div className="mb-25 mt-2 h-32 grid place-items-center">
+                <div className="text-[100px] text-orange-600 p-5  grid place-items-center">
                     <FaPoo />
                 </div>
                 <p className='text-2xl font-bold bg-orange-600 mt-2 text-zinc-50 rounded-3xl p-2'>PooTalk</p>

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError } from "./types";
+import { type LoginResponse, type UserType, type LoginFormType, type LoginResult, type RegisterFormType, type RegisterResult, type RegisterResponse, type RegisterError, type SearchUserType } from "./types";
 
 const BASE_URL = "http://192.168.100.248:8080"
 
@@ -83,3 +83,24 @@ export const logoutUser = async (token: string | null): Promise<void> => {
         throw error;
     }
 };
+
+//search users
+export const searchUsers = async (token: string | null, search: string, perPage : number, curPage: number): Promise<SearchUserType> => {
+    try{
+        const response = await axiosInstance.get<SearchUserType>(`/api/users?search=${search}&per_page=${perPage}&page=${curPage}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        console.error("Error searching users:", axiosError);
+
+        if (axiosError.response) {
+            throw axiosError.response.data;
+        }
+
+        throw error;
+    }
+}

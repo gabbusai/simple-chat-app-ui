@@ -15,12 +15,12 @@ function MainLayout() {
     
 
   return (
-    <div className='relative w-screen flex'>
+    <div className='relative w-screen flex '>
       <div className="sticky top-0">
           <Toaster />
           <NavBar />
       </div>
-      <div className="w-full">
+      <div className="w-full ">
         <Outlet />
       </div>
     </div>

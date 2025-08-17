@@ -25,8 +25,24 @@ export type RegisterFormType = {
 };
 
 export type RegisterResponse = {
+    user: UserType;
+    token: string;
+};
 
+export type SearchUserType = {
+    users: UserType[];
+    pagination: {
+        current_page: number;
+        last_page: number;
+        total: number;
+        per_page: number;
+        from: number;
+        to: number;
+        next_page_url: string | null;
+        prev_page_url: string | null;
+    };
 }
+
 export type RegisterError = {
     message: string;
     errors:{
